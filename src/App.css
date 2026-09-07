@@ -8,14 +8,24 @@
 .flex-container-headings {
 	display: flex;
 	justify-content: left;
-	padding: 10px;	
+	padding-left: 10px;	
+}
+
+.flex-container-global-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .flex-container-contact {
-    display: flex;            
+    display: flex;
+    flex-direction: row;
     justify-content: left; 
-    align-items: center;
-    gap: 20px;               
+    align-items: flex-start;
+    gap: 10px;              
+    margin: 10px 0;
+    flex-wrap: wrap;                
 }
 
 .flex-item-contact {
@@ -23,14 +33,25 @@
 }
 
 .flex-container-badges {
-	display: flex;            
-  	justify-content: left; 
-  	align-items: center;
-  	gap: 20px;               
+    display: flex;
+    flex-direction: row;
+    justify-content: left; 
+    align-items: flex-start;
+    gap: 10px;              
+    margin: 10px 0;
+    flex-wrap: wrap;            
 }
 
 .flex-item-badges {
-  	padding: 10px;
+    padding: 10px;
+}
+
+.flex-item-badges-text {
+    padding-left: 0px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 190px;
 }
 
 .flex-container-architecture-diagram {
@@ -44,4 +65,25 @@
 	padding: 10px;
 }
 
+.flex-item-architecture-diagram-text {
+    display: flex;
+    justify-content: left;
+    text-align: left;
+    padding: 10px;  
+}
 
+.flex-container-design-decisions {
+    display: flex;
+    justify-content: left;
+    text-align: left;
+    padding-left: 10px;
+    flex-wrap: wrap;   
+}
+
+.flex-container-core-experience {
+    display: flex;
+    justify-content: left;
+    text-align: left;
+    padding-left: 10px;
+    flex-wrap: wrap;   
+}
