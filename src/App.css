@@ -1,3 +1,43 @@
+/* Basic variable setup */
+:root {
+    --bg-primary: #0f172a;       /* background colour dark slate */
+    --bg-surface: #1e293b;       /* brighter slate for cards */
+    --text-primary: #f8fafc;     /* bright white for readability */
+    --text-secondary: #94a3b8;   /* grey for flow text */
+    --aws-orange: #ff9900;       /* AWS orange */
+    --border-color: #334155;     /* white border seperation line */
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+/* Page body style */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Headings */
+.flex-container-headings {
+    display: flex;
+    justify-content: left;
+    padding-left: 10px; 
+}
+
+h2, h3 {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+h3 {
+    color: var(--aws-orange); /* Hebt deine Zertifizierungen/Design Decisions hervor */
+}
+
+/* Hero text */
 .flex-container-hero-text {
     display: flex;
     justify-content: left;
@@ -5,10 +45,23 @@
     padding: 10px;  
 }
 
-.flex-container-headings {
-	display: flex;
-	justify-content: left;
-	padding-left: 10px;	
+/* Global page counter */
+.flex-container-global-counter {
+    display: inline-flex; /* Verhindert, dass die Box die volle Breite blockiert */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 153, 0, 0.1); /* Sanfter AWS Orange Schimmer */
+    border: 1px solid var(--aws-orange);
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+}
+
+#counter-value {
+    color: var(--aws-orange);
+    font-family: monospace;
+    font-size: 1.2rem;
 }
 
 .flex-container-global-counter {
@@ -18,72 +71,200 @@
     gap: 10px;
 }
 
+/* Contact buttons */
+.flex-item-contact {
+    display: inline-flex;
+    align-items: center; 
+    gap: 10px;           
+    background: var(--bg-surface);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    text-decoration: none; /* removes the underline of the hyperlink */
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.button:hover {
+    border-color: #24292e; 
+    background: rgba(36, 41, 46, 0.2); 
+    transform: translateY(-2px); /* moves to button up while hovering */
+    box-shadow: 0 4px 12px rgba(36, 41, 46, 0.25);
+}
+
 .flex-container-contact {
     display: flex;
     flex-direction: row;
-    justify-content: left; 
-    align-items: flex-start;
-    gap: 10px;              
-    margin: 10px 0;
+    justify-content: flex-start; 
+    align-items: center; /* centers icons and text vertically */
+    gap: 1rem;              
+    margin: 1.5rem 0;
     flex-wrap: wrap;                
 }
 
-.flex-item-contact {
-    padding: 10px;
-}
-
+/* Badges */
 .flex-container-badges {
     display: flex;
     flex-direction: row;
-    justify-content: left; 
-    align-items: flex-start;
-    gap: 10px;              
-    margin: 10px 0;
+    justify-content: flex-start; 
+    align-items: center; /* Hält Bild und Text auf einer horizontalen Achse */
+    gap: 1.5rem;              
+    margin: 1.5rem 0;
     flex-wrap: wrap;            
 }
 
 .flex-item-badges {
+    background: #ffffff; /* Weißer Hintergrund, falls Zertifikate transparent sind */
     padding: 10px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.flex-item-badges img {
+    max-width: 80px;
+    height: auto;
 }
 
 .flex-item-badges-text {
-    padding-left: 0px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 0.5rem 0;
     width: 190px;
+    max-width: 240px; /* Flexiblerer Umbruch */
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
 }
 
+/* Architecture diagram (Responsive!) */
 .flex-container-architecture-diagram {
-	display: flex;
-	justify-content: left;
-	align-items: left;
-	gap: 20px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    background: var(--bg-surface);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+/* Ab Tablet/Desktop nebeneinander */
+@media (min-width: 768px) {
+    .flex-container-architecture-diagram {
+        flex-direction: row; 
+        align-items: flex-start;
+    }
 }
 
 .flex-item-architecture-diagram {
-	padding: 10px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.flex-item-architecture-diagram img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    background: #ffffff; /* Schützt lesbare Diagramme vor dem Dark Mode */
+    padding: 1rem;
 }
 
 .flex-item-architecture-diagram-text {
+    flex: 1.2;
     display: flex;
-    justify-content: left;
+    justify-content: flex-start;
     text-align: left;
-    padding: 10px;  
+    padding: 0;  
 }
 
-.flex-container-design-decisions {
-    display: flex;
-    justify-content: left;
-    text-align: left;
-    padding-left: 10px;
-    flex-wrap: wrap;   
+.flex-item-architecture-diagram-text p {
+    color: var(--text-secondary);
 }
 
+/* Design Decisions & Core Experience */
+.flex-container-design-decisions,
 .flex-container-core-experience {
-    display: flex;
-    justify-content: left;
+    display: block; /* Block-Layout für sauberen Textfluss */
     text-align: left;
-    padding-left: 10px;
-    flex-wrap: wrap;   
+    padding: 2rem;
+    background: linear-gradient(180deg, var(--bg-surface), #152033); /* Edler Verlauf */
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the introduction question in design decisions */
+.flex-container-design-decisions p {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+}
+
+/* Styling for sub-entries in lists */
+.flex-container-design-decisions ul,
+.flex-container-core-experience ul {
+    list-style-type: none; /* no standard points in lists, this will be set with custom items*/
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem; /* equal spacing between points */
+}
+
+/* Styling for list points */
+.flex-container-design-decisions li,
+.flex-container-core-experience li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+/* Styling of main bullet points */
+.flex-container-design-decisions li::before,
+.flex-container-core-experience li::before {
+    content: "▪";
+    position: absolute;
+    left: 0;
+    color: var(--aws-orange);
+    font-size: 1.1rem;
+    top: -1px;
+}
+
+/* Highlighting of main keywords */
+.flex-container-design-decisions strong,
+.flex-container-core-experience strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Controls the layout for nested lists (inner <ul>) */
+.flex-container-core-experience ul ul {
+    margin-top: 0.5rem;      /* distance to main point */
+    margin-bottom: 0.5rem;   /* distance to bottom */
+    padding-left: 1.25rem;   /* indent */
+    gap: 0.5rem;             /* smaller distance between sup-points */
+}
+
+/* Styling of inner list points ( inner <li>) */
+.flex-container-core-experience ul ul li {
+    font-size: 0.95rem;       /* smaller font size for better hierarchy */
+    color: #a1a1aa;           /* bright grey */
+}
+
+/* Sets the colour and shape of sub-bullet points */
+.flex-container-core-experience ul ul li::before {
+    content: "○";             /* open circle instead of square */
+    color: #60a5fa;           /* blue colour for sub-bullet points */
+    font-size: 1rem;
+    top: -1px;
 }

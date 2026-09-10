@@ -4,14 +4,16 @@ import outputs from '../amplify_outputs.json'
 import { generateClient } from 'aws-amplify/data'
 import GitHub from './assets/github.png'
 import LinkedIn from './assets/linked-in.png'
+import Xing from './assets/xing.png'
 import Email from './assets/email.png'
+import Download from './assets/download.png'
 import badgeAWS_SolutionArchitect from './assets/aws-certified-solutions-architect-associate.png'
 import badgeOracleJavaSE7 from './assets/oracle-certified-associate-java-se-7-programmer.png'
 import badgeOracleJavaEE5 from './assets/oracle-certified-professional-java-ee-5-web-component-developer-jpn.png'
 import awsStaticWebsiteArchitecture from './assets/aws_static_website_architecture.png'
 import './App.css'
 
-// Generiert den typisierten Amplify-Daten-Client
+// An Amplify client is required for the backend
 Amplify.configure(outputs);
 const client = generateClient();
 
@@ -21,18 +23,18 @@ function App() {
         async function updateCounter() {
         const counterId = "global_website_counter";
         try {
-            // 1. Versuche den aktuellen Zählerstand aus DynamoDB zu holen
+            // 1. Try to get the counter value from DynamoDB
             const { data: counter } = await client.models.Counter.get({ id: counterId });
 
             if (counter) {
-                // 2. Wenn er existiert, erhöhe den Wert um 1
+                // 2. If counter exists increment the counter by 1
                 const { data: updatedCounter } = await client.models.Counter.update({
                     id: counterId,
                     views: counter.views + 1
                 });
                 setVisitorCount(updatedCounter.views);
             } else {
-                // 3. Fallback: Erster Aufruf der Website überhaupt -> Eintrag erstellen
+                // 3. Fallback: First website call ever -> create counter entry
                 const { data: newCounter } = await client.models.Counter.create({
                     id: counterId,
                     views: 1
@@ -40,7 +42,7 @@ function App() {
                 setVisitorCount(newCounter.views);
             }
         } catch (error) {
-            console.error("Fehler beim Aktualisieren des Amplify-Counters:", error);
+            console.error("Failure in updating Amplify-Counters:", error);
         }
     }
     updateCounter();
@@ -72,30 +74,26 @@ function App() {
         </p>
     </div>
     <div className="flex-container-contact">
-        <div className="flex-item-contact">
-            <a href="https://github.com/SaschaFriederichs" target="_blank" rel="noreferrer">
-                <img src={GitHub} className="base" width="50" height="50" alt="GitHub"/>
-            </a>
-        </div>
-        <div className="flex-item-contact">
-            <a href="https://github.com/SaschaFriederichs">GitHub</a>
-        </div>
-        <div className="flex-item-contact">
-            <a href="https://linkedin.com/in/sascha-friederichs-ba32b4153" target="_blank" rel="noreferrer">
-                <img src={LinkedIn} className="base" width="50" height="50" alt="LinkedIn"/>
-            </a>
-        </div>
-        <div className="flex-item-contact">
-            <a href="https://linkedin.com/in/sascha-friederichs-ba32b4153">LinkedIn</a>
-        </div>
-        <div className="flex-item-contact">
-            <a href="mailto:sascha_friederichs@web.de" target="_blank" rel="noreferrer">
-                <img src={Email} className="base" width="50" height="50" alt="Email"/>
-            </a>
-        </div>
-        <div className="flex-item-contact">
-            <a href="mailto:sascha_friederichs@web.de">Email: sascha_friederichs@web.de</a>
-        </div>
+        <a href="https://github.com/SaschaFriederichs" target="_blank" rel="noreferrer" className="flex-item-contact button">
+            <img src={GitHub} width="20" height="20" alt="GitHub" />
+            <span>GitHub</span>
+        </a>
+        <a href="https://linkedin.com/in/sascha-friederichs-ba32b4153" target="_blank" rel="noreferrer" className="flex-item-contact button">
+            <img src={LinkedIn} width="20" height="20" alt="LinkedIn" />
+            <span>LinkedIn</span>
+        </a>
+        <a href="https://www.xing.com/profile/Sascha_Friederichs2" target="_blank" rel="noreferrer" className="flex-item-contact button">
+            <img src={Xing} width="20" height="20" alt="Xing" />
+            <span>Xing</span>
+        </a>
+        <a href="mailto:sascha_friederichs@web.de" target="_blank" rel="noreferrer" className="flex-item-contact button">
+            <img src={Email} width="20" height="20" alt="Email" />
+            <span>sascha_friederichs@web.de</span>
+        </a>
+        <a href="/Curriculum_Vitae_Friederichs.pdf" download className="flex-item-contact button">
+            <img src={Download} width="20" height="20" alt="CV_Download" />
+            <span>CV Download</span>
+        </a>
     </div>
 	<div className="flex-container-headings">
 		<h3>Verified Credentials</h3> 
