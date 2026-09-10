@@ -10,6 +10,7 @@ import Download from './assets/download.png'
 import badgeAWS_SolutionArchitect from './assets/aws-certified-solutions-architect-associate.png'
 import badgeOracleJavaSE7 from './assets/oracle-certified-associate-java-se-7-programmer.png'
 import badgeOracleJavaEE5 from './assets/oracle-certified-professional-java-ee-5-web-component-developer-jpn.png'
+import badgeOMG_SysML from './assets/sysml-fundamental-model-builder.png'
 import awsStaticWebsiteArchitecture from './assets/aws_static_website_architecture.png'
 import './App.css'
 
@@ -117,6 +118,12 @@ function App() {
 		<div className="flex-item-badges-text">
 			<p>Oracle Certified Associate, Java SE 7 Programmer</p>
 		</div>
+        <div className="flex-item-badges">
+            <img src={badgeOMG_SysML} className="base" width="100" height="100" alt="" />
+        </div>
+        <div className="flex-item-badges-text">
+            <p>OMG-Certified Systems Modeling Professional - Model Builder - Fundamental</p>
+        </div>
 	</div>
 	
 	<div className="flex-container-headings">
