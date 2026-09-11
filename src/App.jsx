@@ -137,11 +137,12 @@ function App() {
             <p>
                 This diagram illustrates the serverless architecture powering this website. The frontend
                 is built with React and Vite (HTML, CSS, JavaScript). Upon pushing source code to GitHub,
-                AWS Amplify Hosting automatically triggers a managed CI/CD pipeline to deploy the assets.
-                For the backend, the AWS Amplify Data Client manages transactions with Amazon DynamoDB
-                to maintain the global visitor counter. Amazon Route 53 handles DNS management for the
-                custom domain, while Amazon CloudFront ensures secure, global low-latency content delivery,
-                backed by SSL/TLS encryption via AWS Certificate Manager (ACM).
+                AWS Amplify Hosting automatically triggers a managed CI/CD pipeline to deploy the assets
+                and distribute them globally with low latency. Amazon Route 53 handles DNS management for
+                the custom domain, backed by SSL/TLS encryption via AWS Certificate Manager (ACM) attached
+                directly to the hosting provider. For the backend, the user's browser securely communicates
+                with Amazon API Gateway, which triggers an AWS Lambda function to manage transactions with
+                Amazon DynamoDB and maintain the global visitor counter.
             </p>          
         </div>
 	</div>
