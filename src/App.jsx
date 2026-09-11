@@ -8,6 +8,7 @@ import Xing from './assets/xing.png'
 import Email from './assets/email.png'
 import Download from './assets/download.png'
 import badgeAWS_SolutionArchitect from './assets/aws-certified-solutions-architect-associate.png'
+import badgeISAQB_SoftwareArchitect from './assets/isaqb-certified-professional-for-software-architecture-foundation-level.png'
 import badgeOracleJavaSE7 from './assets/oracle-certified-associate-java-se-7-programmer.png'
 import badgeOracleJavaEE5 from './assets/oracle-certified-professional-java-ee-5-web-component-developer-jpn.png'
 import badgeOMG_SysML from './assets/sysml-fundamental-model-builder.png'
@@ -106,6 +107,12 @@ function App() {
 		<div className="flex-item-badges-text">
 			<p>AWS Certified Solutions Architect – Associate</p>
 		</div>
+        <div className="flex-item-badges">
+            <img src={badgeISAQB_SoftwareArchitect} className="base" width="100" height="100" alt="" />
+        </div>
+        <div className="flex-item-badges-text">
+            <p>ISAQB Certified Professional for Software Architecture - Foundation Level</p>
+        </div>
         <div className="flex-item-badges">
             <img src={badgeOracleJavaEE5} className="base" width="100" height="100" alt="" />
         </div>
