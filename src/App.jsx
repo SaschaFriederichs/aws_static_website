@@ -142,7 +142,7 @@ function App() {
 		</div>
         <div className="flex-item-architecture-diagram-text">
             <p>
-                <strong>Diagram Desciption</strong><br />
+                <strong>Diagram Description</strong><br />
                 This diagram illustrates the serverless architecture powering this website. The frontend
                 is built with React and Vite (HTML, CSS, JavaScript). Upon pushing source code to GitHub,
                 AWS Amplify Hosting automatically triggers a managed CI/CD pipeline to deploy the assets
