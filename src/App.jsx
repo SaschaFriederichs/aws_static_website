@@ -143,14 +143,16 @@ function App() {
         <div className="flex-item-architecture-diagram-text">
             <p>
                 <strong>Diagram Description</strong><br />
-                This diagram illustrates the serverless architecture powering this website. The frontend
-                is built with React and Vite (HTML, CSS, JavaScript). Upon pushing source code to GitHub,
-                AWS Amplify Hosting automatically triggers a managed CI/CD pipeline to deploy the assets
-                and distribute them globally with low latency. Amazon Route 53 handles DNS management for
-                the custom domain, backed by SSL/TLS encryption via AWS Certificate Manager (ACM) attached
-                directly to the hosting provider. For the backend, the user's browser securely communicates
-                with Amazon API Gateway, which triggers an AWS Lambda function to manage transactions with
-                Amazon DynamoDB and maintain the global visitor counter.
+                This diagram illustrates the serverless architecture powering this website. The frontend is
+                built with React and Vite (HTML, CSS, JavaScript). Upon pushing source code to GitHub, AWS
+                Amplify Hosting automatically triggers a managed CI/CD pipeline to build the application, deploy
+                the static assets, and distribute them globally with low latency. Amazon Route 53 handles DNS
+                management for the custom domain, backed by automated SSL/TLS encryption managed via AWS
+                Certificate Manager (ACM). For the dynamic backend component, the user's browser securely
+                communicates via HTTPS/GraphQL directly with AWS AppSync. To minimize operational overhead and
+                completely eliminate cold starts, AWS AppSync utilizes direct JavaScript data source resolvers
+                to interact natively with Amazon DynamoDB, where the global visitor counter is transactionally
+                managed and stored.
             </p>          
         </div>
 	</div>
