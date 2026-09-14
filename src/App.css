@@ -177,12 +177,19 @@ h3 {
 }
 
 .flex-item-architecture-diagram-text {
+    flex-direction: column;
     flex: 1.2;
     display: flex;
     justify-content: flex-start;
     text-align: left;
     padding: 0;  
 }
+
+.flex-item-architecture-diagram-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
 
 .flex-item-architecture-diagram-text p {
     color: var(--text-secondary);

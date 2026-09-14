@@ -13,6 +13,7 @@ import badgeOracleJavaSE7 from './assets/oracle-certified-associate-java-se-7-pr
 import badgeOracleJavaEE5 from './assets/oracle-certified-professional-java-ee-5-web-component-developer-jpn.png'
 import badgeOMG_SysML from './assets/sysml-fundamental-model-builder.png'
 import awsStaticWebsiteArchitecture from './assets/aws_static_website_architecture.png'
+import awsInventoryAppArchitecture from './assets/aws_inventory_app_architecture.png'
 import './App.css'
 
 // An Amplify client is required for the backend
@@ -132,7 +133,6 @@ function App() {
             <p>OMG-Certified Systems Modeling Professional - Model Builder - Fundamental</p>
         </div>
 	</div>
-	
 	<div className="flex-container-headings">
 		<h2>Architecture Diagram of This Website</h2>
 	</div>
@@ -142,6 +142,7 @@ function App() {
 		</div>
         <div className="flex-item-architecture-diagram-text">
             <p>
+                <strong>Diagram Desciption</strong><br />
                 This diagram illustrates the serverless architecture powering this website. The frontend
                 is built with React and Vite (HTML, CSS, JavaScript). Upon pushing source code to GitHub,
                 AWS Amplify Hosting automatically triggers a managed CI/CD pipeline to deploy the assets
@@ -154,7 +155,7 @@ function App() {
         </div>
 	</div>
     <div className="flex-container-headings">
-        <h3>Design Decisions</h3>
+        <h3>Design Decisions (This Website)</h3>
     </div>
     <div className="flex-container-design-decisions">
         <p>Why choosing AWS Amplify instead of other solutions?</p>
@@ -182,7 +183,61 @@ function App() {
         </ul>   
     </div>
     <div className="flex-container-headings">
-            <h2>Core Experience</h2>
+        <h2>Serverless Inventory App with Terraform & GitHub Actions</h2>
+    </div>
+    <div className="flex-container-architecture-diagram">
+        <div className="flex-item-architecture-diagram">
+            <img src={awsInventoryAppArchitecture} className="base" width="500" height="500" alt="" />
+        </div>
+        <div className="flex-item-architecture-diagram-text">
+            <p>
+                <strong>Diagram Overview</strong><br />
+                This serverless inventory application utilizes a fully automated, event-driven architecture on
+                Amazon Web Services (AWS). The entire infrastructure is managed as code via Terraform and deployed
+                through a GitHub Actions CI/CD pipeline to ensure rapid, reliable, and repeatable deployments.
+            </p>
+            <p>
+                <strong>Deployment Flow</strong><br />
+                First, code is pushed from the Development PC to GitHub. Then, GitHub Actions triggers automatically
+                upon receiving the push. Next, the pipeline executes terraform apply to deploy infrastructure. Finally,
+                the pipeline synchronizes the static frontend files to Amazon S3.
+            </p>
+            <p>
+                <strong>User Flow</strong><br />
+                First, the User requests and loads the webpage from Amazon S3. Then, the browser sends HTTP requests
+                directly to Amazon API Gateway. Next, the gateway forwards these requests to the AWS Lambda Function.
+                Finally, the Lambda function queries or updates data inside Amazon DynamoDB.
+            </p>
+            {/* THE LIVE LINK BUTTON */}
+            <div style={{ marginTop: '20px' }}>
+                <a href="http://my-inventory-frontend-7cfcad34.s3-website.eu-central-1.amazonaws.com/" target="_blank" rel="noreferrer" className="button" style={{ display: 'inline-block', padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', borderRadius: '5px', textDecoration: 'none', fontWeight: 'bold' }}>
+                    🚀 Launch Live Inventory App
+                </a>
+            </div>         
+        </div>
+    </div>
+    <div className="flex-container-headings">
+        <h3>Design Decisions (Inventory App)</h3>
+    </div>
+    <div className="flex-container-design-decisions">
+        <p>Key architectural choices made for scalability and maintainability:</p>
+        <ul>
+            <li>
+                <strong>Infrastructure as Code (Terraform):</strong> Chosen over AWS CloudFormation to ensure cloud-agnostic skills and modular, human-readable infrastructure definitions (HCL).
+            </li>
+            <li>
+                <strong>Fully Automated CI/CD (GitHub Actions):</strong> Eliminates manual deployment errors by automatically running Terraform plans, deploying Lambda functions, and syncing frontend assets on every push.
+            </li>
+            <li>
+                <strong>Serverless State Management (S3 Backend):</strong> Migrated from a local state to an encrypted AWS S3 remote backend to enable secure, concurrent, and decentralized pipeline executions.
+            </li>
+            <li>
+                <strong>Serverless CRUD Architecture:</strong> Using Amazon API Gateway, AWS Lambda, and DynamoDB (Pay-Per-Request) ensures a highly scalable, zero-maintenance backend that incurs $0 cost when idle.
+            </li>
+        </ul>
+    </div>
+    <div className="flex-container-headings">
+        <h2>Core Experience</h2>
     </div>
     <div className="flex-container-core-experience">
         <ul>    
