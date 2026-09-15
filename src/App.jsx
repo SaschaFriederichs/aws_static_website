@@ -97,7 +97,7 @@ function App() {
             </a>
         </div>
     </header>
-    <body className="portfolio-body">
+    <main className="portfolio-main">
     	<div className="flex-container-headings">
     		<h3>Verified Credentials</h3> 
     	</div>
@@ -138,7 +138,7 @@ function App() {
     	</div>
     	<div className="flex-container-architecture-diagram">
     		<div className="flex-item-architecture-diagram">
-    			<img src={awsStaticWebsiteArchitecture} className="base" width="500" height="500" alt="" />
+    			<img src={awsStaticWebsiteArchitecture} className="base" width="500" height="500" alt="Diagram AWS Static Website Architecture" />
     		</div>
             <div className="flex-item-architecture-diagram-text">
                 <p>
@@ -189,7 +189,7 @@ function App() {
         </div>
         <div className="flex-container-architecture-diagram">
             <div className="flex-item-architecture-diagram">
-                <img src={awsInventoryAppArchitecture} className="base" width="500" height="500" alt="" />
+                <img src={awsInventoryAppArchitecture} className="base" width="500" height="500" alt="Diagram AWS Inventory App Architecture" />
             </div>
             <div className="flex-item-architecture-diagram-text">
                 <p>
@@ -300,7 +300,7 @@ function App() {
                 </li>
             </ul>        
         </div>
-    </body>
+    </main>
     <footer className="portfolio-footer">
         <p>&copy; {new Date().getFullYear()} Sascha Friederichs</p>
         <div className="footer-legal-links">
