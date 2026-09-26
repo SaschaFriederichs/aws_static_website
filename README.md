@@ -1,16 +1,45 @@
-# React + Vite
+# AWS Static Portfolio Website (Cloud Resume Challenge)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**Welcome to the repository of my personal cloud portfolio project!** This web application was built as part of the Cloud Resume Challenge. It serves as an interactive portfolio that showcases my 10+ years of experience in enterprise system and software architecture, alongside my specialization in AWS cloud infrastructures.
 
-Currently, two official plugins are available:
+You can view the live deployment and read a detailed description of the architecture at: **[sascha-friederichs.de](https://sascha-friederichs.de)** [1]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🛠️ Tech Stack & Cloud Architecture
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The application relies on a 100% serverless, event-driven architecture designed for maximum performance, high availability, and zero operational overhead.
 
-## Expanding the Oxlint configuration
+*   **Frontend Framework:** [React](https://react.dev) built with [Vite](https://vitejs.dev) for a highly optimized, fast-loading Single Page Application (SPA).
+*   **Hosting & Deployment:** [AWS Amplify Hosting](https://amazon.com) managing automated CI/CD pipelines, SSL/TLS certificates, and global edge distribution.
+*   **Backend & API:** [AWS AppSync](https://amazon.com) (GraphQL) utilizing direct JavaScript data source resolvers to completely eliminate cold starts.
+*   **Database:** [Amazon DynamoDB](https://amazon.com) for persistent, transactional storage of the global visitor counter.
+*   **Domain & DNS:** [Amazon Route 53](https://amazon.com) for custom domain management, backed by automated SSL/TLS encryption via **AWS Certificate Manager (ACM)**.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### The Real-Time Visitor Counter (Amplify Gen 2)
+When the website loads, a React `useEffect` hook triggers an asynchronous function. This function communicates directly with AppSync via the Amplify data client, checks if the counter entry exists in DynamoDB, transactionally increments the view metric by `+1`, and updates the UI state seamlessly.
+
+---
+
+## 🚀 Showcased Cloud Projects
+
+This portfolio aggregates the architecture, design decisions, and documentation of two core systems:
+
+1.  **This Portfolio Website (AWS Amplify Stack):**
+    *   Focuses on cost-optimized serverless hosting (scaling to zero when idle), edge caching via CDN, and a git-based deployment workflow.
+2.  **Serverless Inventory App (Infrastructure as Code):**
+    *   A separate, fully automated CRUD application featured on the platform.
+    *   **Tech Stack:** Amazon API Gateway, AWS Lambda, and Amazon DynamoDB.
+    *   **Deployment:** Managed as code via **Terraform** utilizing an encrypted S3 remote state backend and deployed automatically through a **GitHub Actions** CI/CD pipeline.
+
+---
+
+## 🏅 Verified Credentials
+
+The interface highlights and validates several professional certifications, including:
+*   **AWS Certified Solutions Architect – Associate** [1]
+*   **iSAQB Certified Professional for Software Architecture** (Foundation Level) [1]
+*   **Oracle Certified Professional**, Java EE 5 Web Component Developer [1]
+*   **Oracle Certified Associate**, Java SE 7 Programmer [1]
+*   **OMG-Certified Systems Modeling Professional** (SysML Fundamental Model Builder) [1]
+
