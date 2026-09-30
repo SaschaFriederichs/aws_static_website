@@ -23,34 +23,78 @@ const client = generateClient();
 function App() {
     const [visitorCount, setVisitorCount] = useState(null);
     useEffect(() => {
-        async function updateCounter() {
-        const counterId = "global_website_counter";
-        try {
-            // 1. Try to get the counter value from DynamoDB
-            const { data: counter } = await client.models.Counter.get({ id: counterId });
+        let isMounted = true;
 
-            if (counter) {
-                // 2. If counter exists increment the counter by 1
-                const { data: updatedCounter } = await client.models.Counter.update({
-                    id: counterId,
-                    views: counter.views + 1
-                });
-                setVisitorCount(updatedCounter.views);
-            } else {
-                // 3. Fallback: First website call ever -> create counter entry
-                const { data: newCounter } = await client.models.Counter.create({
-                    id: counterId,
-                    views: 1
-                });
-                setVisitorCount(newCounter.views);
+        async function processCounterUpdate() {
+            const counterId = "global_website_counter";
+            let retries = 3; // Maximum number of times we try to resolve a race condition collision
+            
+            while (retries > 0) {
+                try {
+                    // 1. READ: Always get the latest fresh state and version from DynamoDB
+                    const { data: currentRecord } = await client.models.Counter.get({ id: counterId });
+
+                    if (!isMounted) return;
+
+                    // If the counter record does not exist in the database yet
+                    if (!currentRecord) {
+                        try {
+                            console.log("Counter item not found. Creating initial record...");
+                            const { data: newRecord } = await client.models.Counter.create({
+                                id: counterId,
+                                views: 1
+                            });
+                            if (isMounted && newRecord) setVisitorCount(newRecord.views);
+                            return; // Creation successful, exit function
+                        } catch (createError) {
+                            // If another user created it at the exact same millisecond, ignore and let the loop retry the update
+                            retries--;
+                            await new Promise(res => setTimeout(res, 100)); // Short backoff delay
+                            continue;
+                        }
+                    }
+
+                    // 2. MODIFY & WRITE: Attempt an optimistic update using the version lock
+                    // Amplify automatically evaluates the incoming model fields against the internal version.
+                    const currentViews = typeof currentRecord.views === 'number' ? currentRecord.views : 0;
+                    
+                    const { data: updatedRecord, errors } = await client.models.Counter.update({
+                        id: counterId,
+                        views: currentViews + 1,
+                        // Passing the read record ensures Amplify checks that no one else modified it in the meantime
+                        _version: currentRecord._version 
+                    });
+
+                    if (errors) {
+                        // If a conflict occurs (another client updated the view count), loop again to fetch the new number
+                        console.warn("GraphQL conflict detected, retrying process...", errors);
+                        retries--;
+                        continue;
+                    }
+
+                    if (isMounted && updatedRecord) {
+                        setVisitorCount(updatedRecord.views);
+                        return; // Successfully updated without any race condition collision, exit loop
+                    }
+
+                } catch (error) {
+                    console.error("Encountered failure during optimistic update sequence:", error);
+                    retries--;
+                    await new Promise(res => setTimeout(res, 100));
+                }
             }
-        } catch (error) {
-            console.error("Failure in updating Amplify-Counters:", error);
+
+            // Absolute safe-guard fallback to make sure the page stops loading if network is totally dead
+            if (isMounted) setVisitorCount(1);
         }
-    }
-    updateCounter();
+
+        processCounterUpdate();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
-	
+    
 	return (
 	<>
     <header className="portfolio-header">
