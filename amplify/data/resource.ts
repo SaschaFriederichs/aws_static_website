@@ -27,5 +27,8 @@ export const data = defineData({
     authorizationModes: {
         // Set public API key as the default authorization method
         defaultAuthorizationMode: 'apiKey',
+        apiKeyAuthorizationMode: {
+            expiresInDays: 365, // Sets the api key expiry time to a maximum of 1 year
+        },
     },
 });

@@ -7,7 +7,7 @@ const backend = defineBackend({
   data,
 });
 
-// ZWINGT AMPLIFY DAZU, EINEN NEUEN API-KEY ZU ERZEUGEN:
-backend.data.resources.cfnResources.cfnApiKey?.overrideLogicalId(
-  `recoverApiKey${new Date().getTime()}`
-);
+// Force Amplify to generate an new api key:
+//backend.data.resources.cfnResources.cfnApiKey?.overrideLogicalId(
+//  `recoverApiKey${new Date().getTime()}`
+//);
