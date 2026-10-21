@@ -8,6 +8,7 @@ import Xing from './assets/xing.png'
 import Email from './assets/email.png'
 import Download from './assets/download.png'
 import badgeAWS_SolutionsArchitect from './assets/aws-certified-solutions-architect-associate.png'
+import badgeTerraformAssociate from './assets/hashicorp-certified-terraform-associate-004.png'
 import badgeAWS_WellArchitected from './assets/well-architected-proficient.png'
 import badgeISAQB_SoftwareArchitect from './assets/isaqb-certified-professional-for-software-architecture-foundation-level.png'
 import badgeOracleJavaEE5 from './assets/oracle-certified-professional-java-ee-5-web-component-developer-jpn.png'
@@ -28,16 +29,19 @@ function App() {
 
         async function processCounterUpdate() {
             const counterId = "global_website_counter";
-            let retries = 3; // Maximum number of times we try to resolve a race condition collision
+            let retries = 3; 
             
             while (retries > 0) {
+                // NEU: Sofort abbrechen, wenn der Strict Mode diesen Durchlauf bereits unmounted hat
+                if (!isMounted) return;
+
                 try {
-                    // 1. READ: Always get the latest fresh state and version from DynamoDB
+                    // 1. READ
                     const { data: currentRecord } = await client.models.Counter.get({ id: counterId });
 
                     if (!isMounted) return;
 
-                    // If the counter record does not exist in the database yet
+                    // Wenn der Counter noch nicht existiert
                     if (!currentRecord) {
                         try {
                             console.log("Counter item not found. Creating initial record...");
@@ -46,28 +50,29 @@ function App() {
                                 views: 1
                             });
                             if (isMounted && newRecord) setVisitorCount(newRecord.views);
-                            return; // Creation successful, exit function
+                            return; 
                         } catch (createError) {
-                            // If another user created it at the exact same millisecond, ignore and let the loop retry the update
+                            if (!isMounted) return;
                             retries--;
-                            await new Promise(res => setTimeout(res, 100)); // Short backoff delay
+                            await new Promise(res => setTimeout(res, 100)); 
                             continue;
                         }
                     }
 
-                    // 2. MODIFY & WRITE: Attempt an optimistic update using the version lock
-                    // Amplify automatically evaluates the incoming model fields against the internal version.
+                    // 2. MODIFY & WRITE
                     const currentViews = typeof currentRecord.views === 'number' ? currentRecord.views : 0;
                     
+                    if (!isMounted) return; // NEU: Vor dem Absenden des Updates prüfen
+
                     const { data: updatedRecord, errors } = await client.models.Counter.update({
                         id: counterId,
                         views: currentViews + 1,
-                        // Passing the read record ensures Amplify checks that no one else modified it in the meantime
                         _version: currentRecord._version 
                     });
 
+                    if (!isMounted) return; // NEU: Nach dem Update prüfen
+
                     if (errors) {
-                        // If a conflict occurs (another client updated the view count), loop again to fetch the new number
                         console.warn("GraphQL conflict detected, retrying process...", errors);
                         retries--;
                         continue;
@@ -75,17 +80,18 @@ function App() {
 
                     if (isMounted && updatedRecord) {
                         setVisitorCount(updatedRecord.views);
-                        return; // Successfully updated without any race condition collision, exit loop
+                        return; 
                     }
 
                 } catch (error) {
                     console.error("Encountered failure during optimistic update sequence:", error);
+                    if (!isMounted) return;
                     retries--;
                     await new Promise(res => setTimeout(res, 100));
                 }
             }
 
-            // Absolute safe-guard fallback to make sure the page stops loading if network is totally dead
+            // Absolute safe-guard fallback
             if (isMounted) setVisitorCount(1);
         }
 
@@ -95,7 +101,7 @@ function App() {
             isMounted = false;
         };
     }, []);
-    
+
 	return (
 	<>
     <header className="portfolio-header">
@@ -153,6 +159,12 @@ function App() {
     		<div className="flex-item-badges-text">
     			<p>AWS Certified Solutions Architect – Associate</p>
     		</div>
+            <div className="flex-item-badges">
+                <img src={badgeTerraformAssociate} className="base" width="100" height="100" alt="Badge HashiCorp Certified: Terraform Associate"/>
+            </div>
+            <div className="flex-item-badges-text">
+                <p>HashiCorp Certified: Terraform Associate</p>
+            </div>
             <div className="flex-item-badges">
                 <img src={badgeAWS_WellArchitected} className="base" width="100" height="100" alt="Badge AWS Well-Architected Proficient"/>
             </div>
